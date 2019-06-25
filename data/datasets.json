@@ -1,0 +1,31 @@
+{
+	"dsC": {
+		"mode": "file layout reading mode.",
+		"all_files": "./dsC/*.xlsx",
+		"trn_files": ["./dsC/train_file1.xlsx", "./dsC/train_file2.xlsx"],
+		"dev_files": ["./dsC/validation_file3.xlsx", "./dsC/validation_file4.xlsx"],
+		"tst_files": ["./dsC/test_file5.xlsx", "./dsC/test_file6.xlsx"],
+		"other_classes": [
+			"skipped_class1",
+			"skipped_class2"
+		],
+		"class_map": {
+			"map_this_class": "to_this_one",
+			"and_this": "to_that"
+		}
+	},
+	"dsD": {
+		"mode": "file layout reading mode.",
+		"all_files": "./dsD/*.xlsx",
+		"trn_files": ["./dsD/train_file1.xlsx", "./dsD/train_file2.xlsx"],
+		"dev_files": ["./dsD/validation_file3.xlsx", "./dsD/validation_file4.xlsx"],
+		"tst_files": ["./dsD/test_file5.xlsx", "./dsD/test_file6.xlsx"],
+		"other_classes": [
+			"skipped_class3",
+			"skipped_class4"
+		],
+		"class_map": {
+			"map_this_class": "to_this_one"
+		}
+	}
+}

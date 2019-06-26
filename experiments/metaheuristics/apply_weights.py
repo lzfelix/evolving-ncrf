@@ -62,8 +62,6 @@ if __name__ == '__main__':
     all_predictions_filepaths = all_specs[model_name][dataset_split][KEY_PRED_FILES]
     labels_filepath           = all_specs[model_name][dataset_split][KEY_LABELS]
 
-    weights_filepath = '../' + weights_filepath
-
     print(f'Model name       : {model_name}')
     print(f'Algorithm        : {algo}')
     print(f'Dataset split    : {dataset_split}')

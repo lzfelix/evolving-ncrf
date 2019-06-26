@@ -112,13 +112,13 @@
 		}
 	},
 	"dsD_softmax": {
-		"ga_weights": {
-			"ac_weights_file": null,
-			"f1_weights_file": null
+        "ga_weights": {
+			"ac_weights_file": "./ga_weights/ga_dsD_softmax_acc.txt",
+			"f1_weights_file": "./ga_weights/ga_dsD_softmax_f1.txt"
 		},
 		"gp_weights": {
-			"ac_weights_file": null,
-			"f1_weights_file": null
+			"ac_weights_file": "./gp_weights/gp_dsD_softmax_acc.txt",
+			"f1_weights_file": "./gp_weights/gp_dsD_softmax_f1.txt"
 		},
 		"dev": {
 			"labels_file": "./find_candidates/cand_predictions/dsD_softmax/labels.txt",

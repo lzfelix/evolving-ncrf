@@ -1,7 +1,7 @@
 {
 	"dsC_softmax": {
 		"ga_weights": {
-			"ac_weights_file": "./metaheuristics/woow.txt",
+			"ac_weights_file": "./ga_weights/ga_dsC_softmax_acc.txt",
 			"f1_weights_file": "./ga_weights/ga_dsC_softmax_f1.txt"
 		},
 		"gp_weights": {

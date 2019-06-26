@@ -167,7 +167,7 @@ if __name__ == '__main__':
                               overlap=BDP_SEQ_OVERLAP,
                               vocab=vocab,
                               other_classes=OTHER_CLASSES,
-                              class_map=CLASS_MAP,
+                              classmap=CLASS_MAP,
                               mode=MODE)
 
     trn_x, trn_y, lencoder = pload(files=TRN_FILES)

@@ -28,7 +28,7 @@ If you use our work, please cite us as: ...
 
 In order to reproduce the results, the following steps (detailed below) must be completed:
 
-1. Suppliying the data in the expected format
+1. Supplying the datat
 2. Training the fastText word embeddings;
 3. Training the proposed contextual model multiple times to create the genetic ensemble;
 4. Finding the Cyclical Learning Rates minima points;
@@ -71,19 +71,19 @@ After providing the data, the file `datasets.json` must be updated to reflect ea
 
 ### 2. Training the word embeddings
 
-Inside the folder `experiments/nn` run `python train_ftt.py [dataset_name]`, which must be one of the keys in the file `./data/datasets.json`. Running this command will train the fastText supervised classifier, generating the paper baseline results, as well as save the data in the fastText format.Further, execute the two commands output in the console to first train the fastText unsupervised word embeddings and then to port the vectors to the gensim format. The generated files are automatically saved in `./embeddings/`.
+Inside the folder `experiments/nn` run `python train_ftt.py [dataset_name]`, where `[dataset_name]` must be one of the keys in the file `./data/datasets.json`. Running this command will train the fastText supervised classifier, generating the paper baseline results. This script also saves the datasets in the fastText format. Further, execute the two commands printed in the last two lines of the console to first train the fastText unsupervised word embeddings. The generated files are automatically saved in `./embeddings/`.
 
 
 
 ### 3. Training the contextual models
 
-By having the trained the word embeddings, the proposed model can be trained by running `python train_model.py` inside the same folder with different different configurations, as presented in our paper. To see a complete list of possibilities, run this script with the `-h` flag. Overall, the following variants can be trained out of the box (the names in parenthesis are the ones used in the manuscript):
+By having the trained the word embeddings, the proposed model can be trained by running `python train_model.py` inside the same folder with the different configurations presented in our paper. To see a complete list of possibilities, run this script with the `-h` flag. Overall, the following variants can be trained out of the box (the names in parenthesis are the ones used in the manuscript):
 
 - Without contextual information (Non-contextual Softmax): requires no additional arguments;
 - With contextual information (Contextual Softmax): requires the flag `--use_context`;
 - With contextual information and CRF (Contextual CRF): requires the flags `--use_context --use_crf`;
 
-If you plan to train the ensemble of classifiers later on, then ensure to save the console output in a text file, for instance with: 
+If you plan to train the ensemble of classifiers later on, then ensure to save the console output in a text file, for instance, with: 
 
 ```
 python train_model.py ds3 ../../embeddings/ds3_model.gensim ../../trained_models/ --use_crf --use_context > ./training_logs/softmax_partials_dsC.txt 2>&1 &
@@ -93,7 +93,7 @@ python train_model.py ds3 ../../embeddings/ds3_model.gensim ../../trained_models
 
 ### 4. Finding the Cyclical Learning Rates minima points 
 
-The next steps use the scripts in `experiments/find_candidates/`, which find the points where the model achieved the lowest validation loss during training for each learning rate annealing cycle. This can be achieved with  `python find_val_minima.py [training_logs.txt]`, where the log file is the one generated in the previous step (`softmax_partials_dsC.txt`, in this case).
+The next steps uses the scripts in `experiments/find_candidates/`, which find the points where the model achieved the lowest validation loss during training for each learning rate annealing cycle. This can be achieved with  `python find_val_minima.py [training_logs.txt]`, where the log file is the one generated in the previous step (`softmax_partials_dsC.txt`, in this case).
 
 Running this script will display in the stdout a list of model names and the epochs in which it has achieved the lowest validation loss during each learning rate annealing cycle. A few of these lines (i.e. candidates) must be copied (in our experiments we used three of them) and pasted in the `experiments/specs.json` file using the template below (the remaining fields in this file are going to be filled in the following steps):
 
@@ -114,7 +114,7 @@ Running this script will display in the stdout a list of model names and the epo
         "models_folder": "path to where the Keras partial models were saved. By default ../trained_models.json",
         "embeddings": "path to the embeddings. For instance ../embeddings/dsC_model.gensim",
         "checkpoints": {
-            "candidate_using_the_template_below": [2, 5, 12, "// epochs found previuosly"],
+            "candidate_model_filename": [2, 5, 12, "// epochs found previuosly"],
             "partial_2019-03-24 21:38:39.96452_epoch={}.h5": [1, 6, 10, 30],
         }
     }
@@ -123,7 +123,7 @@ Running this script will display in the stdout a list of model names and the epo
 
 
 
-Next, each selected epoch for each candidate must be loaded and used to predict in the validation and test sets. The validation predictions are going to be used to learn the ensemble, while the test set predictions are going to be used in the last step to evaluate the learnt embeddings.
+Next, each selected epoch for each candidate must be loaded and used to predict in the validation and test sets. The validation predictions are going to be used to learn the ensemble, while the test set predictions are going to be used in the last step to evaluate the learnt ensembles.
 
 To perform this step using the previuos example, use `python predict_on_minima.py dsC_softmax (model_name) dsC (dataset_name) cand_predictions/dsC_softmax`. This will populate the folder `cand_predictions/dsC_softmax/` with the predictions performed by the models under `checkpoints` in the aforementioned JSON file. Further, these filenames must be used to manually update the `experiments/specs.json`, for instance:
 
@@ -172,7 +172,7 @@ To perform this step using the previuos example, use `python predict_on_minima.p
 
 ### 5. Learning and evaluating ensembles with GA and GP
 
-In order to complete this step the following prerequisites must be fulfilled within the folder `metaheuristics`:
+In order to complete this step the following prerequisites must be fulfilled within the folder `metaheuristics/`:
 
 * Install the [LibOPT](https://github.com/jppbsi/libopt) library:
   * Just clone the repository and run `make`;
@@ -187,7 +187,7 @@ In order to complete this step the following prerequisites must be fulfilled wit
 * Compile the GA and GP optimization programs by running `make`.  
   
 
-The GA and GP ensembles can be learned with the bash scripts in this folder (`train_validate.sh` runs the GA 15 times) and `train_validate_gp.sh` does the same using Genetic Programming). These scripts print in the screen the weights for each candidate found in each run. Since such information is required to evaluate the embeddings, their output should be redirected to a file as follows:
+The GA and GP ensembles can be learned with the bash scripts in this folder (`train_validate.sh` runs the GA 15 times) and `train_validate_gp.sh` (does the same using Genetic Programming). These scripts print in the screen the weights for each candidate found in each run. Since such information is required to evaluate the embeddings, their output should be redirected to a file as follows:
 
 ```bash
 ./train_validate.sh dsC_softmax > dsC_softmax_ga_acc_weights.txt 2>&1 &

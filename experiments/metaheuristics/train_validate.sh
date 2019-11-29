@@ -3,7 +3,7 @@
 MAX_AMOUNT=15
 WEIGHTS_LINE=1
 
-echo "Usage: ./train_validate model_dataset, ie: softmax_ds3"
+echo "Usage: ./train_validate model_dataset, ie: dsC_softmax"
 echo "If optimizing for F1 score, do not forget to activate the venv"
 echo
 

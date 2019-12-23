@@ -1,12 +1,24 @@
 # Evolving Neural Conditional Random Fields for Drilling Report Classification
 
-This repository contains all the necessary code to run the same experiments described in the paper *"Evolving Neural Conditional Random Fields for Drilling Report Classification"*, however the user must provide the data in the expected format.
+This repository contains all the necessary code to run the same experiments described in the paper [*"Evolving Neural Conditional Random Fields for drilling report classification"*](https://www.sciencedirect.com/science/article/abs/pii/S092041051931263X?via%3Dihub), however the user must provide the data in the expected format.
 
 
 ## References
 
-If you use our work, please cite us as: ...
+If you use our work, please cite us as:
 
+```
+@article{ribeiro2019ncrf,
+    title = "Evolving Neural Conditional Random Fields for drilling report classification",
+    journal = "Journal of Petroleum Science and Engineering",
+    pages = "106846",
+    year = "2019",
+    issn = "0920-4105",
+    doi = "https://doi.org/10.1016/j.petrol.2019.106846",
+    url = "http://www.sciencedirect.com/science/article/pii/S092041051931263X",
+    author = "Luiz C.F. Ribeiro and Luis C.S. Afonso and Danilo Colombo and Ivan R. Guilherme and João P. Papa",
+}
+```
 
 
 ## Folders Strucuture

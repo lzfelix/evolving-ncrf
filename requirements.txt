@@ -1,4 +1,4 @@
-numpy==1.15.2
+numpy==1.22.0
 matplotlib==2.2.2
 sklearn # should be 0.20
 gensim==3.4.0

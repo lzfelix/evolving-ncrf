@@ -7,7 +7,7 @@ tqdm>=4.24.0
 unidecode>=1.0.22
 
 # deep learning part
-tensorflow==1.15.2
+tensorflow==2.9.3
 keras==2.2.2
 git+https://www.github.com/keras-team/keras-contrib.git
 
